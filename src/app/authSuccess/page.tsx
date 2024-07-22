@@ -1,17 +1,27 @@
-"use client";
-import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import Loading from "./_components/loading";
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Loading from './_components/loading';
+
 export default function Page() {
   const searchParams = useSearchParams();
-  const code = searchParams.get("code");
+  const [code, setCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    const codeParam = searchParams.get('code');
+    setCode(codeParam);
+  }, [searchParams]);
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-4xl font-mono">Successfully logged in with ebay</h1>
-      <h2 className="block mt-3 text-2xl">the acess code is:</h2>
-      <Suspense fallback={<Loading />}>
-        <code className="block mt-3 text-2xl">{code}</code>
-      </Suspense>
+      <h1 className="text-4xl font-mono">Successfully logged in with eBay</h1>
+      {code ? (
+        <code className="block mt-5 text-2xl bg-gray-200 rounded-md p-2">{code}</code>
+      ) : (
+        <Loading />
+      )}
     </main>
   );
 }
+
