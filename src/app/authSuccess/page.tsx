@@ -14,6 +14,27 @@ const AuthSuccess = () => {
     const expireInParam = searchParams.get('expires_in');
     setCode(codeParam);
     setExpireIn(Number(expireInParam));
+
+    if (codeParam && expireInParam) {
+      // Send code and expireIn to server
+      fetch('http://localhost:3000/auth/success', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          code: codeParam,
+          expires_in: Number(expireInParam),
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
   }, [searchParams]);
 
   return (
@@ -28,5 +49,6 @@ const AuthSuccess = () => {
 };
 
 export default AuthSuccess;
+
 
 
