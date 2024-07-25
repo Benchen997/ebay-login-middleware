@@ -27,9 +27,9 @@ export default function DisplayCode() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    const { accessToken } = data;
+                    const { access_token } = data;
                     console.log('Success:', data);
-                    window.location.href = `http://localhost:5200/chat?access_token=${accessToken}`;
+                    window.location.href = `http://localhost:5200/chat?access_token=${access_token}`;
                 })
                 .catch((error) => {
                     console.error('Error:', error);
