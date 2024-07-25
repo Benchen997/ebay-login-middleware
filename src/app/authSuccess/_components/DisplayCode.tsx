@@ -28,8 +28,14 @@ export default function DisplayCode() {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          const {access_token, refresh_token, expires_in} = data;
           // redirect to actuall app with token
-          window.location.href = `http://localhost:5200/auth/success?access_token=${data.access_token}&refresh_token=${data.refresh_token}&expires_in=${data.expires_in}`;
+          if (!access_token || !refresh_token || !expires_in) {
+            alert("Error: Missing tokens");
+            window.location.href = "http://localhost:5200/login";
+            return;
+          }
+          window.location.href = `http://localhost:5200/auth/success?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`;
         })
         .catch((error) => {
           console.error("Error:", error);
