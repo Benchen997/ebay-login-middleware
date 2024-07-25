@@ -31,7 +31,7 @@ export default function DisplayCode() {
           // Construct a form to post data to actual app
           const form = document.createElement("form");
           form.method = "POST";
-          form.action = "http://localhost:5200/authSuccess";
+          form.action = "http://localhost:5200/store-tokens";
 
           for (const key in data) {
             if (data.hasOwnProperty(key)) {
