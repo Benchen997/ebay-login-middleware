@@ -29,19 +29,11 @@ export default function DisplayCode() {
         .then((data) => {
           console.log(data);
           // Send token data to the actual app
-          fetch('http://localhost:5200/api/store-tokens', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          })
-            .then(() => {
-              window.location.href = 'http://localhost:5200/';
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
+          // Set tokens as cookies and redirect to the actual app
+          document.cookie = `access_token=${data.access_token}; path=/; SameSite=Lax`;
+          document.cookie = `refresh_token=${data.refresh_token}; path=/; SameSite=Lax`;
+          document.cookie = `expires_at=${Date.now() + data.expires_in * 1000}; path=/; SameSite=Lax`;
+          window.location.href = 'http://localhost:5200/chat';
         })
         .catch((error) => {
           console.error("Error:", error);
