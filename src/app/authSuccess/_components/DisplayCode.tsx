@@ -28,23 +28,20 @@ export default function DisplayCode() {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          // Construct a form to post data to actual app
-          const form = document.createElement("form");
-          form.method = "POST";
-          form.action = "http://localhost:5200/store-tokens";
-
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              const hiddenField = document.createElement("input");
-              hiddenField.type = "hidden";
-              hiddenField.name = key;
-              hiddenField.value = data[key];
-              form.appendChild(hiddenField);
-            }
-          }
-
-          document.body.appendChild(form);
-          form.submit();
+          // Send token data to the actual app
+          fetch('http://localhost:5200/api/store-tokens', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+            .then(() => {
+              window.location.href = 'http://localhost:5200/';
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
         })
         .catch((error) => {
           console.error("Error:", error);
