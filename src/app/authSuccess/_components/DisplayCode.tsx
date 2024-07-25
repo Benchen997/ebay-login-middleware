@@ -28,8 +28,8 @@ export default function DisplayCode() {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          // Send token data to the actual app
-          //window.location.href = 'http://localhost:5200/chat';
+          // redirect to actuall app with token
+          window.location.href = `http://localhost:5200/auth/success?access_token=${data.access_token}&refresh_token=${data.refresh_token}&expires_in=${data.expires_in}`;
         })
         .catch((error) => {
           console.error("Error:", error);
