@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function DisplayCode() {
@@ -13,7 +13,10 @@ export default function DisplayCode() {
     if (codeParam && expireInParam) {
       console.log("codeParam", codeParam);
       console.log("expireInParam", expireInParam);
-      window.location.href = `http://localhost:5200/auth/success?code=${codeParam}&expires_in=${expireInParam}`;
+      // Encode the parameters before redirecting
+      const encodedCode = encodeURIComponent(codeParam);
+      const encodedExpireIn = encodeURIComponent(expireInParam);
+      window.location.href = `http://localhost:5200/auth/success?code=${encodedCode}&expires_in=${encodedExpireIn}`;
   }
   }, [searchParams]);
   return (
