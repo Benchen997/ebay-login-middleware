@@ -1,10 +1,15 @@
-import {LoginButton} from "@/ui/LoginButton";
+import DisplayCode from "@/app/DisplayCode";
+import { Suspense } from "react";
 
-export default function Home() {
+export default function Page() {
+  // do not make page.tsx as client side, it will not work when build
+  // page must be SSR as static page
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-4xl font-mono mb-3">Redirecting ...</h1>
-        <LoginButton />
+      <Suspense fallback={<div>Loading...</div>}>
+        <DisplayCode />
+      </Suspense>
     </main>
   );
 }
