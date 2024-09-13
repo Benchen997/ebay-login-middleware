@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Backdrop, CircularProgress } from "@mui/material";
 
-export default function DisplayCode() {
+export default function DisplayCode({ redirectUrl }: { redirectUrl: string }) {
 
   const searchParams = useSearchParams();
 
@@ -17,9 +17,9 @@ export default function DisplayCode() {
       // Encode the parameters before redirecting
       const encodedCode = encodeURIComponent(codeParam);
       const encodedExpireIn = encodeURIComponent(expireInParam);
-      window.location.href = `${process.env.NEXT_PUBLIC_WEB_URL}/auth/success?code=${encodedCode}&expires_in=${encodedExpireIn}`;
+      window.location.href = `${redirectUrl}/auth/success?code=${encodedCode}&expires_in=${encodedExpireIn}`;
   }
-  }, [searchParams]);
+  }, [searchParams, redirectUrl]);
   return (
     <>
     <Backdrop
