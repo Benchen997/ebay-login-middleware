@@ -17,7 +17,7 @@ export default function DisplayCode() {
       // Encode the parameters before redirecting
       const encodedCode = encodeURIComponent(codeParam);
       const encodedExpireIn = encodeURIComponent(expireInParam);
-      window.location.href = `http://localhost:5200/auth/success?code=${encodedCode}&expires_in=${encodedExpireIn}`;
+      window.location.href = `${process.env.NEXT_PUBLIC_WEB_URL}/auth/success?code=${encodedCode}&expires_in=${encodedExpireIn}`;
   }
   }, [searchParams]);
   return (
